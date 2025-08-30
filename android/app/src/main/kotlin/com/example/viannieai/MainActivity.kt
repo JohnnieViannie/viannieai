@@ -1,4 +1,4 @@
-package com.example.viannieai
+package com.example.viannie
 
 import io.flutter.embedding.android.FlutterActivity
 

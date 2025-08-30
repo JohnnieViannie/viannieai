@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_overlay_window/flutter_overlay_window.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'chat_window.dart';
+import 'pages/home.dart';
+import 'pages/floating_window.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
+}
+
+// Overlay entry point
+@pragma("vm:entry-point")
+void overlayMain() {
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: AdvancedFloatingButton(), // Updated to use AdvancedFloatingButton
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  Future<void> _requestOverlayPermission() async {
-    if (!await FlutterOverlayWindow.isPermissionGranted()) {
-      await FlutterOverlayWindow.requestPermission();
-    }
-  }
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    _requestOverlayPermission();
-
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: Text('Screen AI Assistant')),
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () async {
-              await FlutterOverlayWindow.showOverlay();
-            },
-            child: Text('Start AI Assistant'),
-          ),
-        ),
-      ),
+      title: 'Viannie',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const HomeScreen(),
     );
   }
 }
